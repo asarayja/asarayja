@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Asarayja</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: #1a0d26;
+            color: #f8edf3;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #e1c5ff;
+            text-shadow: 1px 1px 3px #000;
+        }
+        
+        .login-container {
+            max-width: 400px;
+            margin: 100px auto;
+            background-color: #25132f;
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid #5330aa;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+        }
+        
+        .admin-panel {
+            display: none;
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #5330aa;
+        }
+        
+        .tab {
+            background-color: #2b2b2b;
+            color: #f8edf3;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 8px 8px 0 0;
+            margin-right: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        .tab.active {
+            background-color: #5330aa;
+        }
+        
+        .tab:hover {
+            background-color: #9c59cc;
+        }
+        
+        .tab-content {
+            background-color: #25132f;
+            padding: 20px;
+            border-radius: 0 12px 12px 12px;
+            border: 1px solid #5330aa;
+            min-height: 400px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #e1c5ff;
+            font-weight: bold;
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            background-color: #1a1a1a;
+            color: #f8edf3;
+            border: 1px solid #5330aa;
+            border-radius: 5px;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+        
+        button {
+            background-color: #5330aa;
+            color: #f8edf3;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #9c59cc;
+        }
+        
+        .btn-danger {
+            background-color: #cc3333;
+        }
+        
+        .btn-danger:hover {
+            background-color: #ff4444;
+        }
+        
+        .item-list {
+            background-color: #1a1a1a;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .item {
+            background-color: #2b2b2b;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border-left: 3px solid #5330aa;
+        }
+        
+        .item-actions {
+            margin-top: 10px;
+        }
+        
+        .item-actions button {
+            margin-right: 10px;
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+        
+        .logout-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        
+        .success-message, .error-message {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        
+        .success-message {
+            background-color: #2d5a2d;
+            color: #90ee90;
+            border: 1px solid #4a7c4a;
+        }
+        
+        .error-message {
+            background-color: #5a2d2d;
+            color: #ff6b6b;
+            border: 1px solid #7c4a4a;
+        }
+        
+        /* Rich Text Editor Styles */
+        .editor-toolbar {
+            background-color: #2b2b2b;
+            border: 1px solid #5330aa;
+            border-bottom: none;
+            border-radius: 5px 5px 0 0;
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        
+        .editor-toolbar button {
+            background-color: #1a1a1a;
+            color: #f8edf3;
+            border: 1px solid #5330aa;
+            border-radius: 3px;
+            padding: 4px 8px;
+            cursor: pointer;
+            font-size: 12px;
+            min-width: 30px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .editor-toolbar button:hover {
+            background-color: #5330aa;
+        }
+        
+        .editor-toolbar button.active {
+            background-color: #9c59cc;
+        }
+        
+        .editor-toolbar select {
+            background-color: #1a1a1a;
+            color: #f8edf3;
+            border: 1px solid #5330aa;
+            border-radius: 3px;
+            padding: 4px;
+            font-size: 12px;
+            height: 28px;
+        }
+        
+        .editor-toolbar input[type="color"] {
+            width: 30px;
+            height: 28px;
+            border: 1px solid #5330aa;
+            border-radius: 3px;
+            background: none;
+            cursor: pointer;
+            padding: 2px;
+        }
+        
+        .toolbar-separator {
+            color: #5330aa;
+            margin: 0 5px;
+            font-weight: bold;
+        }
+        
+        #richTextEditor {
+            border-top: none !important;
+            border-radius: 0 0 5px 5px !important;
+        }
+        
+        #richTextEditor:focus {
+            outline: none;
+            border-color: #9c59cc;
+        }
+        
+        #richTextEditor h1, #richTextEditor h2, #richTextEditor h3 {
+            color: #e1c5ff;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+        
+        #richTextEditor img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        #richTextEditor a {
+            color: #9c59cc;
+            text-decoration: underline;
+        }
+        
+        #richTextEditor ul, #richTextEditor ol {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        #richTextEditor blockquote {
+            border-left: 3px solid #5330aa;
+            margin: 10px 0;
+            padding-left: 15px;
+            font-style: italic;
+            color: #cccccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Login Form -->
+        <div class="login-container" id="loginContainer">
+            <h2 style="text-align: center; color: #e1c5ff;">Admin Login</h2>
+            <div class="form-group">
+                <label for="username">Brukernavn:</label>
+                <input type="text" id="username" placeholder="Skriv inn brukernavn">
+            </div>
+            <div class="form-group">
+                <label for="password">Passord:</label>
+                <input type="password" id="password" placeholder="Skriv inn passord">
+            </div>
+            <button onclick="login()" style="width: 100%;">Logg inn</button>
+            <div id="loginError" class="error-message" style="display: none; margin-top: 15px;"></div>
+        </div>
+
+        <!-- Admin Panel -->
+        <div class="admin-panel" id="adminPanel">
+            <button class="logout-btn" onclick="logout()">Logg ut</button>
+            
+            <div class="header">
+                <h1>Admin Panel</h1>
+                <p>Administrer innhold på Asarayja's nettside</p>
+            </div>
+
+            <div class="tabs">
+                <button class="tab active" onclick="showTab('content')">Innhold</button>
+                <button class="tab" onclick="showTab('music')">Musikk</button>
+                <button class="tab" onclick="showTab('gallery')">Bilder</button>
+                <button class="tab" onclick="showTab('tabs')">Faner</button>
+                <button class="tab" onclick="showTab('settings')">Innstillinger</button>
+            </div>
+
+            <!-- Content Management Tab -->
+            <div class="tab-content" id="contentTab">
+                <h3>Rediger innhold</h3>
+                <div class="form-group">
+                    <label for="siteTitle">Nettsidens tittel:</label>
+                    <input type="text" id="siteTitle" value="Velkommen til Melissa og Asarayja sin verden!">
+                </div>
+                
+                <div class="form-group">
+                    <label for="personalName">Personlig navn:</label>
+                    <input type="text" id="personalName" value="Melissa Helena">
+                </div>
+                
+                <div class="form-group">
+                    <label for="personalAge">Alder:</label>
+                    <input type="text" id="personalAge" value="36 år">
+                </div>
+                
+                <div class="form-group">
+                    <label for="personalInterests">Interesser:</label>
+                    <textarea id="personalInterests" rows="3">Spille pc‑spill og se serier</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="fursonaName">Fursona navn:</label>
+                    <input type="text" id="fursonaName" value="Asarayja">
+                </div>
+                
+                <div class="form-group">
+                    <label for="fursonaType">Fursona type:</label>
+                    <input type="text" id="fursonaType" value="Kanin">
+                </div>
+                
+                <div class="form-group">
+                    <label for="fursonaTraits">Egenskaper:</label>
+                    <textarea id="fursonaTraits" rows="3">Lur, leken, nysgjerrig</textarea>
+                </div>
+                
+                <button onclick="saveContent()">Lagre endringer</button>
+                <div id="contentMessage"></div>
+            </div>
+
+            <!-- Music Management Tab -->
+            <div class="tab-content" id="musicTab" style="display: none;">
+                <h3>Musikk administrasjon</h3>
+                
+                <div class="form-group">
+                    <h4>Legg til nytt album</h4>
+                    <label for="albumTitle">Album tittel:</label>
+                    <input type="text" id="albumTitle" placeholder="F.eks: Asarayja - Nytt Album">
+                </div>
+                
+                <div class="form-group">
+                    <label for="albumDescription">Album beskrivelse (valgfritt):</label>
+                    <textarea id="albumDescription" rows="2" placeholder="Beskrivelse av albumet"></textarea>
+                </div>
+                
+                <button onclick="addAlbum()">Opprett album</button>
+                
+                <h4>Legg til sang til album</h4>
+                <div class="form-group">
+                    <label for="selectAlbum">Velg album:</label>
+                    <select id="selectAlbum">
+                        <option value="">Velg et album</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="songTitle">Sang tittel:</label>
+                    <input type="text" id="songTitle" placeholder="F.eks: Asarayja - Ny sang">
+                </div>
+                
+                <div class="form-group">
+                    <label for="songUrl">Sang URL:</label>
+                    <input type="url" id="songUrl" placeholder="http://eksempel.com/sang.mp3">
+                </div>
+                
+                <button onclick="addSong()">Legg til sang</button>
+                
+                <div class="item-list">
+                    <h4>Eksisterende album</h4>
+                    <div id="albumList"></div>
+                </div>
+                
+                <div id="musicMessage"></div>
+            </div>
+
+            <!-- Gallery Management Tab -->
+            <div class="tab-content" id="galleryTab" style="display: none;">
+                <h3>Bilder administrasjon</h3>
+                
+                <div class="form-group">
+                    <label for="imageUrl">Bilde URL:</label>
+                    <input type="url" id="imageUrl" placeholder="https://eksempel.com/bilde.jpg">
+                </div>
+                
+                <div class="form-group">
+                    <label for="imageCaption">Bildetekst:</label>
+                    <input type="text" id="imageCaption" placeholder="Beskrivelse av bildet">
+                </div>
+                
+                <div class="form-group">
+                    <label for="imageAlt">Alt-tekst:</label>
+                    <input type="text" id="imageAlt" placeholder="Alt-tekst for skjermlesere">
+                </div>
+                
+                <button onclick="addImage()">Legg til bilde</button>
+                
+                <div class="item-list">
+                    <h4>Eksisterende bilder</h4>
+                    <div id="imageList"></div>
+                </div>
+                
+                <div id="galleryMessage"></div>
+            </div>
+
+            <!-- Tabs Management Tab -->
+            <div class="tab-content" id="tabsTab" style="display: none;">
+                <h3>Faner administrasjon</h3>
+                
+                <div class="form-group">
+                    <label for="newTabName">Navn på ny fane:</label>
+                    <input type="text" id="newTabName" placeholder="F.eks: Hobbyer">
+                </div>
+                
+                <div class="form-group">
+                    <label for="newTabContent">Innhold i fane:</label>
+                    
+                    <!-- Rich Text Editor Toolbar -->
+                    <div class="editor-toolbar">
+                        <button type="button" onclick="formatText('bold')" title="Fet skrift">
+                            <strong>B</strong>
+                        </button>
+                        <button type="button" onclick="formatText('italic')" title="Kursiv">
+                            <em>I</em>
+                        </button>
+                        <button type="button" onclick="formatText('underline')" title="Understreking">
+                            <u>U</u>
+                        </button>
+                        
+                        <span class="toolbar-separator">|</span>
+                        
+                        <select onchange="formatText('fontSize', this.value)" title="Skriftstørrelse">
+                            <option value="">Skriftstørrelse</option>
+                            <option value="12px">Liten (12px)</option>
+                            <option value="14px">Normal (14px)</option>
+                            <option value="18px">Stor (18px)</option>
+                            <option value="24px">Større (24px)</option>
+                            <option value="32px">Tittel (32px)</option>
+                        </select>
+                        
+                        <input type="color" onchange="formatText('foreColor', this.value)" title="Tekstfarge" value="#f8edf3">
+                        <input type="color" onchange="formatText('backColor', this.value)" title="Bakgrunnsfarge" value="#25132f">
+                        
+                        <span class="toolbar-separator">|</span>
+                        
+                        <button type="button" onclick="formatText('justifyLeft')" title="Venstrejuster">⬅</button>
+                        <button type="button" onclick="formatText('justifyCenter')" title="Sentrer">⬌</button>
+                        <button type="button" onclick="formatText('justifyRight')" title="Høyrejuster">➡</button>
+                        
+                        <span class="toolbar-separator">|</span>
+                        
+                        <button type="button" onclick="insertImage()" title="Sett inn bilde">📷</button>
+                        <button type="button" onclick="insertLink()" title="Sett inn lenke">🔗</button>
+                        
+                        <span class="toolbar-separator">|</span>
+                        
+                        <button type="button" onclick="formatText('insertUnorderedList')" title="Punktliste">• Lista</button>
+                        <button type="button" onclick="formatText('insertOrderedList')" title="Nummerert liste">1. Lista</button>
+                        
+                        <span class="toolbar-separator">|</span>
+                        
+                        <button type="button" onclick="clearFormatting()" title="Fjern formatering">🧹</button>
+                        <button type="button" onclick="toggleHTMLView()" title="Vis/skjul HTML kode">HTML</button>
+                    </div>
+                    
+                    <!-- Rich Text Editor -->
+                    <div id="richTextEditor" 
+                         contenteditable="true" 
+                         style="min-height: 200px; 
+                                border: 1px solid #5330aa; 
+                                border-radius: 5px; 
+                                padding: 10px; 
+                                background-color: #1a1a1a; 
+                                color: #f8edf3; 
+                                font-family: inherit;
+                                overflow-y: auto;
+                                max-height: 400px;"
+                         placeholder="Skriv innholdet her... Du kan formatere teksten med verktøyene over.">
+                    </div>
+                    
+                    <!-- HTML View (hidden by default) -->
+                    <textarea id="htmlView" 
+                              style="display: none; 
+                                     min-height: 200px; 
+                                     border: 1px solid #5330aa; 
+                                     border-radius: 5px; 
+                                     padding: 10px; 
+                                     background-color: #1a1a1a; 
+                                     color: #f8edf3; 
+                                     font-family: 'Courier New', monospace;
+                                     width: 100%;
+                                     box-sizing: border-box;"
+                              placeholder="HTML kode vises her..."></textarea>
+                </div>
+                
+                <button onclick="addTab()">Opprett ny fane</button>
+                
+                <div class="item-list">
+                    <h4>Eksisterende faner</h4>
+                    <div id="tabsList"></div>
+                </div>
+                
+                <div id="tabsMessage"></div>
+            </div>
+
+            <!-- Settings Tab -->
+            <div class="tab-content" id="settingsTab" style="display: none;">
+                <h3>Innstillinger</h3>
+                
+                <div class="form-group">
+                    <label for="newUsername">Nytt brukernavn:</label>
+                    <input type="text" id="newUsername" placeholder="Nytt brukernavn">
+                </div>
+                
+                <div class="form-group">
+                    <label for="newPassword">Nytt passord:</label>
+                    <input type="password" id="newPassword" placeholder="Nytt passord">
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">Bekreft passord:</label>
+                    <input type="password" id="confirmPassword" placeholder="Bekreft nytt passord">
+                </div>
+                
+                <button onclick="updateCredentials()">Oppdater legitimasjon</button>
+                
+                <hr style="margin: 30px 0; border-color: #5330aa;">
+                
+                <h4>Farlige handlinger</h4>
+                <button class="btn-danger" onclick="resetAllData()">Tilbakestill all data</button>
+                <p style="color: #ff6b6b; font-size: 12px;">Advarsel: Dette vil slette ALT lagret innhold!</p>
+                
+                <div id="settingsMessage"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>

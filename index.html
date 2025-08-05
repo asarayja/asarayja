@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+
+<html lang="no">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Melissa og Asarayja sin verden</title>
+
+  <!-- Webfont for Comic Sans MS -->
+
+  <link href="https://fonts.cdnfonts.com/css/comic-sans-ms" rel="stylesheet">
+
+  <style>
+
+    body {
+
+      margin: 0;
+
+      background-color: #1a0d26;
+
+      color: #f8edf3;
+
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+
+    }
+
+    header {
+
+      background-color: #1f0a2b;
+
+      text-align: center;
+
+      padding: 30px 20px;
+
+      border-bottom: none;
+
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+
+    }
+
+    header img {
+
+      max-width: 160px;
+
+      height: auto;
+
+      margin: 0 auto 10px;
+
+      display: block;
+
+      border: none;
+
+      box-shadow: none;
+
+    }
+
+    header h1 {
+
+      margin: 0;
+
+      font-size: 2.4em;
+
+      letter-spacing: 2px;
+
+      color: #e1c5ff;
+
+      text-shadow: 1px 1px 5px #000000;
+
+    }
+
+    #langToggle {
+
+      margin-top: 10px;
+
+      padding: 5px 10px;
+
+      background-color: #1c1c1c;
+
+      color: #f8edf3;
+
+      border: 1px solid #5330aa;
+
+      border-radius: 4px;
+
+      cursor: pointer;
+
+      transition: background-color 0.3s ease;
+
+    }
+
+    #langToggle:hover {
+
+      background-color: #5330aa;
+
+    }
+
+    nav {
+
+      background-color: #1a1a1a;
+
+      border-top: 4px solid #5330aa;
+
+      border-bottom: 4px solid #5330aa;
+
+    }
+
+    nav ul {
+
+      list-style: none;
+
+      display: flex;
+
+      justify-content: center;
+
+      padding: 0;
+
+      margin: 0;
+
+    }
+
+    nav li {
+
+      margin: 0;
+
+    }
+
+    nav a {
+
+      display: block;
+
+      padding: 15px 25px;
+
+      text-decoration: none;
+
+      color: #f8edf3;
+
+      background-color: #2b2b2b;
+
+      border-bottom: 3px solid transparent;
+
+      transition: background-color 0.3s ease;
+
+    }
+
+    nav a:hover {
+
+      background-color: #9c59cc;
+
+    }
+
+    nav a.active {
+
+      background-color: #5330aa;
+
+    }
+
+	nav {
+
+  position: sticky;
+
+  top: 0;
+
+  z-index: 999;
+
+}
+
+    section {
+
+      padding: 30px;
+
+      max-width: 960px;
+
+      margin: 30px auto;
+
+      background-color: #25132f;
+
+      border: 1px solid #5330aa;
+
+      border-radius: 12px;
+
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+
+    }
+
+    #about h1,
+
+    #music h1,
+
+    #gallery h1 {
+
+      margin-top: 0;
+
+      color: #e1c5ff;
+
+      text-shadow: 1px 1px 3px #000;
+
+    }
+
+    .album {
+
+      margin-bottom: 40px;
+
+    }
+
+    .album h2 {
+
+      color: #e1c5ff;
+
+      margin-bottom: 10px;
+
+    }
+
+    .album audio {
+
+      width: 100%;
+
+      background-color: transparent;
+
+      border-radius: 5px;
+
+    }
+
+    .playlist {
+
+      list-style: none;
+
+      padding: 0;
+
+      margin: 10px 0 0;
+
+    }
+
+    .playlist li {
+
+      padding: 8px;
+
+      cursor: pointer;
+
+      color: #cccccc;
+
+      border-radius: 4px;
+
+      transition: background-color 0.2s, color 0.2s;
+
+    }
+
+    .playlist li:hover {
+
+      background-color: #5330aa;
+
+      color: #f8edf3;
+
+    }
+
+    .playlist li.playing {
+
+      color: #e1c5ff;
+
+      font-weight: bold;
+
+    }
+
+    .image-grid {
+
+      display: grid;
+
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+
+      gap: 15px;
+
+      margin-top: 20px;
+
+    }
+
+    .image-grid img {
+
+      width: 100%;
+
+      border-radius: 8px;
+
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+
+      transition: transform 0.3s ease;
+
+      cursor: pointer;
+
+    }
+
+    .image-grid img:hover {
+
+      transform: scale(1.03);
+
+      box-shadow: 0 6px 15px rgba(83,48,170,0.5);
+
+    }
+
+    #lightbox {
+
+      position: fixed;
+
+      top: 0; left: 0;
+
+      width: 100%; height: 100%;
+
+      background-color: rgba(0,0,0,0.9);
+
+      display: none;
+
+      align-items: center;
+
+      justify-content: center;
+
+      z-index: 999;
+
+    }
+
+    #lightbox img {
+
+      max-width: 90%;
+
+      max-height: 90%;
+
+      border-radius: 10px;
+
+      box-shadow: 0 0 30px rgba(83,48,170,0.4);
+
+    }
+
+    #lightbox-close {
+
+      position: absolute;
+
+      top: 20px; right: 30px;
+
+      font-size: 40px;
+
+      color: #f8edf3;
+
+      cursor: pointer;
+
+      z-index: 1000;
+
+      font-weight: bold;
+
+    }
+
+    #backToTop {
+
+      position: fixed;
+
+      bottom: 30px;
+
+      right: 30px;
+
+      width: 48px;
+
+      height: 48px;
+
+      background-color: #5330aa;
+
+      color: #f8edf3;
+
+      border: none;
+
+      border-radius: 50%;
+
+      font-size: 32px;
+
+      font-weight: 900;
+
+      display: none;
+
+      align-items: center;
+
+      justify-content: center;
+
+      cursor: pointer;
+
+      z-index: 1000;
+
+      box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+
+      transition: opacity 0.3s;
+
+      text-shadow:
+
+        1px 0 0 currentColor,
+
+       -1px 0 0 currentColor,
+
+        0 1px 0 currentColor,
+
+        0 -1px 0 currentColor;
+
+    }
+
+    #backToTop.show {
+
+      display: flex;
+
+      opacity: 0.8;
+
+    }
+
+    #backToTop:hover {
+
+      opacity: 1;
+
+    }
+
+    .subsection {
+
+      margin-top: 30px;
+
+      padding-top: 10px;
+
+      border-top: 2px solid #444;
+
+    }
+
+    .subsection h2 {
+
+      color: #e1c5ff;
+
+      margin-bottom: 10px;
+
+    }
+
+    .subsection p {
+
+      margin: 6px 0;
+
+    }
+
+    .subsection p strong {
+
+      display: inline-block;
+
+      width: 120px;
+
+    }
+
+    @media (max-width: 600px) {
+
+      header img { max-width: 100px; }
+
+      nav ul { flex-direction: column; }
+
+    }
+
+	.profile-section {
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  margin-top: 20px;
+
+}
+
+
+
+.subsection img {
+
+  width: 150px;
+
+  height: 150px;
+
+  border-radius: 50%;
+
+  object-fit: cover;
+
+  display: block;
+
+  margin: 10px 0;
+
+  border: 3px solid #5330aa;
+
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+
+}
+
+.profile-section {
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  margin-top: 20px;
+
+}
+
+    .image-grid figure {
+
+      margin: 0;
+
+    }
+
+    /* Rich Content Styles for Custom Tabs */
+    .rich-content {
+      line-height: 1.6;
+    }
+
+    .rich-content h1, .rich-content h2, .rich-content h3 {
+      color: #e1c5ff;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      text-shadow: 1px 1px 3px #000;
+    }
+
+    .rich-content h1 {
+      font-size: 2em;
+    }
+
+    .rich-content h2 {
+      font-size: 1.5em;
+    }
+
+    .rich-content h3 {
+      font-size: 1.2em;
+    }
+
+    .rich-content img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      margin: 15px 0;
+      display: block;
+    }
+
+    .rich-content a {
+      color: #9c59cc;
+      text-decoration: underline;
+      transition: color 0.3s ease;
+    }
+
+    .rich-content a:hover {
+      color: #e1c5ff;
+    }
+
+    .rich-content ul, .rich-content ol {
+      margin: 15px 0;
+      padding-left: 20px;
+    }
+
+    .rich-content li {
+      margin: 5px 0;
+    }
+
+    .rich-content blockquote {
+      border-left: 4px solid #5330aa;
+      margin: 20px 0;
+      padding-left: 20px;
+      font-style: italic;
+      color: #cccccc;
+      background-color: rgba(83,48,170,0.1);
+      border-radius: 0 8px 8px 0;
+      padding: 15px 20px;
+    }
+
+    .rich-content strong {
+      color: #e1c5ff;
+      font-weight: bold;
+    }
+
+    .rich-content em {
+      color: #cccccc;
+      font-style: italic;
+    }
+
+    .rich-content u {
+      text-decoration: underline;
+    }
+
+    .rich-content p {
+      margin: 10px 0;
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <!-- Header + språkknapp -->
+
+  <header>
+
+    <img src="http://asarayja.free.nf/bilder/4.png" alt="Asarayja logo">
+
+    <h1 data-i18n="site_title">Velkommen til Melissa og Asarayja sin verden!</h1>
+
+    <button id="langToggle">English</button>
+
+    <div style="margin-top: 10px;">
+
+      <a href="admin.html" style="color: #e1c5ff; text-decoration: none; font-size: 12px; padding: 5px 10px; border: 1px solid #5330aa; border-radius: 4px; background-color: rgba(83,48,170,0.2);">Admin Panel</a>
+
+    </div>
+
+  </header>
+
+
+
+  <!-- Navigasjon -->
+
+  <nav>
+
+  <ul>
+
+    <li><a href="#" id="menu-about"   class="active" data-i18n="nav_about">Om Meg</a></li>
+
+    <li><a href="#" id="menu-music"             data-i18n="nav_music">Musikk</a></li>
+
+    <li><a href="#" id="menu-gallery"           data-i18n="nav_gallery">Bilder</a></li>
+
+  </ul>
+
+</nav>
+
+
+
+  <!-- Om Meg -->
+
+  <section id="about">
+
+  <h1 data-i18n="about_title">Om Asarayja</h1>
+
+
+
+  <!-- Personlig profil -->
+
+  <div class="subsection" id="personal-profile">
+
+    <h2 data-i18n="personal_title">Personlig Profil</h2>
+
+	<img src="https://i.imgur.com/eMPz6p6.png" alt="Personlig profil bilde" />
+
+    <p>
+
+      <strong data-i18n="about_label_name">Navn:</strong>
+
+      <span    data-i18n="about_value_name"> Melissa Helena</span>
+
+    </p>
+
+    <p>
+
+      <strong data-i18n="about_label_birthday">Bursdag:</strong>
+
+      <span    data-i18n="about_value_birthday"> 15. Januar</span>
+
+    </p>
+
+    <p>
+
+      <strong data-i18n="about_label_age">Alder:</strong>
+
+      <span    data-i18n="about_value_age"> 36 år</span>
+
+    </p>
+
+    <p>
+
+      <strong data-i18n="about_label_interests">Interesser:</strong>
+
+      <span    data-i18n="about_value_interests"> Spille pc‑spill og se serier</span>
+
+    </p>
+
+    <p>
+
+      <strong data-i18n="about_label_likes">Liker:</strong>
+
+      <span    data-i18n="about_value_likes">
+
+        Gå turer, være med venner
+
+      </span>
+
+    </p>
+
+	<p>
+
+      <strong data-i18n="about_label_sport">Sport:</strong>
+
+      <span    data-i18n="about_value_sport">
+
+        Svømming og friidrett
+
+      </span>
+
+    </p>
+
+  </div>
+
+
+
+  <!-- Fursona‑profil -->
+
+  <div class="subsection" id="fursona-profile">
+
+    <h2 data-i18n="fursona_title">Fursona‑profil</h2>
+
+	<img src="http://asarayja.free.nf/bilder/goth_head_no_lines_no_tekst.png" alt="Fursona profil bilde" /
+
+    <p>
+
+      <strong data-i18n="fursona_label_name">Navn:</strong>
+
+      <span    data-i18n="fursona_value_name">Asarayja</span>
+
+    </p>
+
+	<p>
+
+      <strong data-i18n="fursona_label_fursona">Fursona:</strong>
+
+      <span    data-i18n="fursona_value_fursona">Kanin</span>
+
+    </p>
+
+    <p>
+
+      <strong data-i18n="fursona_label_origin">Opprinnelse:</strong>
+
+      <span    data-i18n="fursona_value_origin">Nordisk ørkenrev</span>
+
+    </p>
+
+    <p>
+
+      <strong data-i18n="fursona_label_traits">Egenskaper:</strong>
+
+      <span    data-i18n="fursona_value_traits">Lur, leken, nysgjerrig</span>
+
+    </p>
+
+    <p>
+
+      <strong data-i18n="fursona_label_story">Bakgrunn:</strong>
+
+      <span    data-i18n="fursona_value_story">Vokste opp på tundraen, elsker eventyr og samspill med venner.</span>
+
+    </p>
+
+    <!-- Du kan legge til flere felter som "Favorittmat", "Favorittleker" osv. -->
+
+  </div>
+
+</section>
+
+
+
+
+
+  <!-- Musikk -->
+
+  <section id="music" style="display: none;">
+
+    <h1 data-i18n="music_title">Musikk</h1>
+
+
+
+    <!-- Album 1: Full Rulle -->
+
+  <div class="album">
+
+    <h2 data-i18n="album1_title">Album: Asarayja – Full Rulle</h2>
+
+    <audio controls></audio>
+
+    <ul class="playlist">
+
+      <li data-src="http://Asarayjathefurry.free.nf/Asarayja/Asarayja_Full_Rulle/Asarayja_Kveldens_Leveranse.mp3">
+
+        Asarayja – Kveldens Leveranse
+
+      </li>
+
+      <li data-src="http://Asarayjathefurry.free.nf/Asarayja/Asarayja_Full_Rulle/Asarayja_Sparkesykkel_Syndrom.mp3">
+
+        Asarayja – Sparkesykkel Syndrom
+
+      </li>
+
+      <li data-src="http://Asarayjathefurry.free.nf/Asarayja/Asarayja_Full_Rulle/Asarayja_Vannverk_i_Varsel.mp3">
+
+        Asarayja – Vannverk i Varsel
+
+      </li>
+
+      <li data-src="http://Asarayjathefurry.free.nf/Asarayja/Asarayja_Full_Rulle/Asarayja_Fjertelykke.mp3">
+
+        Asarayja – Fjertelykke
+
+      </li>
+
+      <li data-src="http://Asarayjathefurry.free.nf/Asarayja/Asarayja_Full_Rulle/Asarayja_Fisefart_i_VR.mp3">
+
+        Asarayja – Fisefart i VR
+
+      </li>
+
+      <li data-src="http://Asarayjathefurry.free.nf/Asarayja/Asarayja_Full_Rulle/Asarayja_Tryne med_Stil.mp3">
+
+        Asarayja – Tryne med Stil
+
+      </li>
+
+      <li data-src="http://Asarayjathefurry.free.nf/Asarayja/Asarayja_Full_Rulle/Asarayja_Kenguvogn.mp3">
+
+        Asarayja – Kenguvogn
+
+      </li>
+
+      <li data-src="http://Asarayjathefurry.free.nf/Asarayja/Asarayja_Full_Rulle/Asarayja_Latterlig_Sjanse.mp3">
+
+        Asarayja – Latterlig Sjanse
+
+      </li>
+
+      <li data-src="http://Asarayjathefurry.free.nf/Asarayja/Asarayja_Full_Rulle/Asarayja_Bortevekk_med_Vind_i_Pelsen.mp3">
+
+        Asarayja – Bortevekk med Vind i Pelsen
+
+      </li>
+
+      <li data-src="http://Asarayjathefurry.free.nf/Asarayja/Asarayja_Full_Rulle/Asarayja_Slipp_Latteren_Fri.mp3">
+
+        Asarayja – Slipp Latteren Fri
+
+      </li>
+
+      <li data-src="http://Asarayjathefurry.free.nf/Asarayja/Asarayja_Full_Rulle/Asarayja_Asarayja_Theme.mp3">
+
+        Asarayja – Theme
+
+      </li>
+
+    </ul>
+
+  </div>
+
+  </section>
+
+
+
+  <!-- Bilder -->
+
+  <section id="gallery" style="display: none;">
+
+  <h1 data-i18n="gallery_title">Bilder</h1>
+
+  <div class="image-grid">
+
+    <figure>
+
+      <img src="https://i.imgur.com/z467d3q.png" alt="Asarayja bilde 1">
+
+      <figcaption data-i18n="gallery_caption1">Asarayja-logo</figcaption>
+
+    </figure>
+
+    <figure>
+
+      <img src="https://via.placeholder.com/300x200?text=Bilde+2" alt="Eksempelbilde 2">
+
+      <figcaption data-i18n="gallery_caption2">Eksempelbilde 2</figcaption>
+
+    </figure>
+
+    <!-- Legg til flere <figure>…</figure> for hvert bilde -->
+
+  </div>
+
+</section>
+
+
+
+  <!-- Lightbox -->
+
+  <div id="lightbox">
+
+    <span id="lightbox-close">&times;</span>
+
+    <img id="lightbox-img" src="" alt="">
+
+  </div>
+
+<button id="backToTop" aria-label="Gå til toppen">↑</button>
+
+  <!-- Skript: navigasjon, audio, lightbox, språk -->
+
+  <script>
+
+  document.addEventListener('DOMContentLoaded', function() {
+
+    // Menyvisning
+
+    const menuAbout = document.getElementById('menu-about');
+
+    const menuMusic = document.getElementById('menu-music');
+
+    const menuGallery = document.getElementById('menu-gallery');
+
+    const aboutSection = document.getElementById('about');
+
+    const musicSection = document.getElementById('music');
+
+    const gallerySection = document.getElementById('gallery');
+
+    function showSection(sec) {
+
+      [aboutSection, musicSection, gallerySection].forEach(s=>s.style.display='none');
+
+      [menuAbout, menuMusic, menuGallery].forEach(a=>a.classList.remove('active'));
+
+      sec.style.display='block';
+
+      if(sec===aboutSection) menuAbout.classList.add('active');
+
+      if(sec===musicSection) menuMusic.classList.add('active');
+
+      if(sec===gallerySection) menuGallery.classList.add('active');
+
+    }
+
+    menuAbout.onclick   = e=>{e.preventDefault(); showSection(aboutSection);};
+
+    menuMusic.onclick   = e=>{e.preventDefault(); showSection(musicSection);};
+
+    menuGallery.onclick = e=>{e.preventDefault(); showSection(gallerySection);};
+
+
+
+    // Audio/playlist
+
+    const players = document.querySelectorAll('.album audio');
+
+    const items   = document.querySelectorAll('.playlist li');
+
+    function pauseAll(curr) { players.forEach(p=>p!==curr&&p.pause()); }
+
+    items.forEach(li=>{
+
+      li.onclick = function(){
+
+        const aud = this.closest('.album').querySelector('audio');
+
+        pauseAll(aud);
+
+        aud.src=this.getAttribute('data-src');
+
+        aud.load();
+
+        aud.play();
+
+        document.querySelectorAll('.playlist li.playing').forEach(x=>x.classList.remove('playing'));
+
+        this.classList.add('playing');
+
+      };
+
+    });
+
+    players.forEach(p=>p.onplay=()=>pauseAll(p));
+
+
+
+    // Lightbox
+
+    const lb = document.getElementById('lightbox');
+
+    const lbImg = document.getElementById('lightbox-img');
+
+    const lbClose = document.getElementById('lightbox-close');
+
+    document.querySelectorAll('.image-grid img').forEach(img=>{
+
+      img.onclick = ()=>{ lbImg.src=img.src; lb.style.display='flex'; };
+
+    });
+
+    lbClose.onclick = ()=>{ lb.style.display='none'; };
+
+    lb.onclick = e=>{ if(e.target===lb) lb.style.display='none'; };
+
+
+
+    // Språkoversettelse
+
+    const translations = {
+
+  no: {
+
+    // Generelt
+
+    site_title:            "Velkommen til Asarayja sin verden!",
+
+    nav_about:             "Om Meg",
+
+    nav_music:             "Musikk",
+
+    nav_gallery:           "Bilder",
+
+
+
+    // Om Meg – Personlig profil
+
+    about_title:           "Om Melissa Helena og Asarayja",
+
+    personal_title:        "Personlig Profil",
+
+    about_label_name:      "Navn:",
+
+    about_value_name:      "Melissa Helena",
+
+    about_label_birthday:  "Bursdag:",
+
+    about_value_birthday:  "15. Januar",
+
+    about_label_age:       "Alder:",
+
+    about_value_age:       "36 år",
+
+    about_label_interests: "Interesser:",
+
+    about_value_interests: "Spille pc‑spill og se serier, lære",
+
+    about_label_likes:     "Liker:",
+
+    about_value_likes:     "Gå turer, være med venner og trene",
+
+    about_label_favcolor:  "Favorittfarge:",
+
+    about_value_favcolor:  "rød, svart og lilla",
+
+    about_label_favgame:   "Favorittspill:",
+
+    about_value_favgame:   "Retro spill",
+
+	about_label_sport:   "Sport:",
+
+    about_value_sport:   "Svømming og friidrett",
+
+
+
+    // Om Meg – Fursona‑profil
+
+    fursona_title:         "Fursona‑profil",
+
+    fursona_label_name:    "Navn:",
+
+    fursona_value_name:    "Asarayja",
+
+	fursona_label_Fursona:    "Fursona:",
+
+	fursona_value_fursona:    "Kanin",
+
+    fursona_label_origin:  "Opprinnelse:",
+
+    fursona_value_origin:  "Nordisk/amrikansk kanin",
+
+    fursona_label_traits:  "Egenskaper:",
+
+    fursona_value_traits:  "Lur, leken, nysgjerrig(blir byttet med riktig info snart)",
+
+    fursona_label_story:   "Bakgrunn:",
+
+    fursona_value_story:   "Vokste opp på tundraen, elsker eventyr og samspill med venner.(blir byttet med riktig info snart)",
+
+
+
+    // Musikk
+
+    music_title:           "Musikk kommer senere",
+
+    album1_title:          "Album: Asarayja – Full Rulle",
+
+
+
+    // Galleri
+
+    gallery_title:         "Bilder kommer snart",
+
+    gallery_caption1:      "Asarayja-logo",
+
+    gallery_caption2:      "Eksempelbilde 2"
+
+  },
+
+  en: {
+
+    // General
+
+    site_title:            "Welcome to Asarayja’s world!",
+
+    nav_about:             "About Me",
+
+    nav_music:             "Music",
+
+    nav_gallery:           "Gallery",
+
+
+
+    // About Me – Personal profile
+
+    about_title:           "About Melissa Helena and Asarayja",
+
+    personal_title:        "Personal Profile",	
+
+    about_label_name:      "Name:",
+
+    about_value_name:      "Melissa Helena",
+
+    about_label_birthday:  "Birthday:",
+
+    about_value_birthday:  "January 15",
+
+    about_label_age:       "Age:",
+
+    about_value_age:       "36 years",
+
+    about_label_interests: "Interests:",
+
+    about_value_interests: "Playing PC games and watching series",
+
+    about_label_likes:     "Likes:",
+
+    about_value_likes:     "Going for walks, hanging out with friends and training",
+
+    about_label_favcolor:  "Favorite color:",
+
+    about_value_favcolor:  "Green, blue and white",
+
+    about_label_favgame:   "Favorite game:",
+
+    about_value_favgame:   "Retro games",
+
+	about_label_sport:   "Sport:",
+
+    about_value_sport:   "Swimming and athletics",
+
+
+
+    // About Me – Fursona profile
+
+    fursona_title:         "Fursona Profile",
+
+    fursona_label_name:    "Name:",
+
+    fursona_value_name:    "Asarayja",
+
+	fursona_label_Fursona:    "Fursona:",
+
+	fursona_value_fursona:    "Bunny",
+
+    fursona_label_origin:  "Origin:",
+
+    fursona_value_origin:  "Nordic/american bunny",
+
+    fursona_label_traits:  "Traits:",
+
+    fursona_value_traits:  "Cunning, playful, curious(blir byttet med riktig info snart)",
+
+    fursona_label_story:   "Background:",
+
+    fursona_value_story:   "Grew up on the tundra, loves adventure and hanging out with friends.(blir byttet med riktig info snart)",
+
+
+
+    // Music
+
+    music_title:           "Music coming later",
+
+    album1_title:          "Album: Asarayja – Full Throttle",
+
+
+
+    // Gallery
+
+    gallery_title:         "Gallery coming soon",
+
+    gallery_caption1:      "Asarayja logo",
+
+    gallery_caption2:      "Sample image 2"
+
+  }
+
+  /* … resten av dine oversettelser … */
+
+};
+
+    let currentLang = 'no';
+
+    const elems = document.querySelectorAll('[data-i18n]');
+
+    function updateLang(lang) {
+
+      elems.forEach(el=>{
+
+        const key=el.getAttribute('data-i18n');
+
+        if(translations[lang][key]) el.textContent=translations[lang][key];
+
+      });
+
+      document.getElementById('langToggle').textContent = lang==='no' ? 'English' : 'Norsk';
+
+      document.documentElement.lang = lang;
+
+      currentLang = lang;
+
+    }
+
+    document.getElementById('langToggle').onclick = ()=>{
+
+      updateLang(currentLang==='no'?'en':'no');
+
+    };
+
+    updateLang(currentLang);
+
+
+
+    // Start with About
+
+    showSection(aboutSection);
+
+  });
+
+  const backToTop = document.getElementById('backToTop');
+
+window.addEventListener('scroll', () => {
+
+  if (window.scrollY > 300) {
+
+    backToTop.classList.add('show');
+
+  } else {
+
+    backToTop.classList.remove('show');
+
+  }
+
+});
+
+backToTop.addEventListener('click', () => {
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+});
+
+  </script>
+
+  <!-- Dynamic Content Management -->
+
+  <script src="dynamic-content.js"></script>
+
+</body>
+
+</html>
+
